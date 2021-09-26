@@ -22,8 +22,8 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItem findOrderItemById(Long id) {
-        return orderItemRepository.findById(id).get();
-    }
+            return orderItemRepository.findById(id).get();
+        }
 
     @Override
     public void addOrderItem(OrderItem orderItem) {

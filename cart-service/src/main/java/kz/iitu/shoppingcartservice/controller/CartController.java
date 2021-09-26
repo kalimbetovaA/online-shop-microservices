@@ -1,5 +1,8 @@
 package kz.iitu.shoppingcartservice.controller;
 
+import kz.iitu.shoppingcartservice.model.Cart;
+import kz.iitu.shoppingcartservice.model.CartItem;
+import kz.iitu.shoppingcartservice.service.CartItemService;
 import kz.iitu.shoppingcartservice.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
     @Autowired
     private CartService cartService;
-
+    @Autowired
+    private CartItemService cartItemService;
     @GetMapping("/customer/{customerid}/cart/{id}")
     public ResponseEntity<?> getCartById(@PathVariable Long customerid, @PathVariable Long id){
         return ResponseEntity.ok(cartService.getCartById(id));
@@ -27,5 +31,9 @@ public class CartController {
     public ResponseEntity<?> getCustomerById(@PathVariable Long id){
         return ResponseEntity.ok(cartService.getCustomerById(id));
     }
-
+    @GetMapping("/{id}/cartItem")
+    public ResponseEntity<?> getCartItems(@PathVariable Long id){
+        Cart cart = cartService.getCartById(id);
+        return ResponseEntity.ok(cartItemService.findCartItemsByCart(cart, id));
+    }
 }
