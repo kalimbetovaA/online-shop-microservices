@@ -9,6 +9,10 @@ public interface CustomerService {
 
     public Customer findCustomerById(Long id);
 
+    public String findCustomerUsernameById(Long id);
+
+    public String findCustomerAddressById(Long id);
+
     public void createCustomer(Customer customer);
 
     public void deleteCustomer(Long id);

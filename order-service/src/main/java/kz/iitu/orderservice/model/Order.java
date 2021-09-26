@@ -13,12 +13,14 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long customerId;
     private Double totalPrice;
+    private String deliverAddress;
     private Boolean deliverStatus;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)

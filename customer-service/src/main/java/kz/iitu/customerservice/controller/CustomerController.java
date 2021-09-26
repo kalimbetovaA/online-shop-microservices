@@ -25,6 +25,16 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.findCustomerById(id));
     }
 
+    @GetMapping("/{id}/username")
+    public ResponseEntity<?> getUsernameByCustomerId(@PathVariable Long id) {
+        return ResponseEntity.ok(customerService.findCustomerUsernameById(id));
+    }
+
+    @GetMapping("/{id}/address")
+    public ResponseEntity<?> getAddressByCustomerId(@PathVariable Long id) {
+        return ResponseEntity.ok(customerService.findCustomerAddressById(id));
+    }
+
     @PostMapping("")
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
         customerService.createCustomer(customer);

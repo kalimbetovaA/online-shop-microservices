@@ -4,7 +4,6 @@ import kz.iitu.customerservice.model.Customer;
 import kz.iitu.customerservice.repository.CustomerRepository;
 import kz.iitu.customerservice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +25,22 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(id).get();
     }
 
+    @Override
+    public String findCustomerUsernameById(Long id) {
+        return customerRepository.findById(id).get().getUsername();
+    }
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    @Override
+    public String findCustomerAddressById(Long id) {
+        return customerRepository.findById(id).get().getAddress();
+    }
+
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void createCustomer(Customer customer) {
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+//        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customerRepository.saveAndFlush(customer);
     }
 
@@ -57,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
             dbCustomer.setEmail(customer.getEmail());
             dbCustomer.setAddress(customer.getAddress());
             dbCustomer.setWallet(customer.getWallet());
-            dbCustomer.setPassword(passwordEncoder.encode(customer.getPassword()));
+            dbCustomer.setPassword(customer.getPassword());
             customerRepository.saveAndFlush(dbCustomer);
         }
     }
