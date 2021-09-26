@@ -19,6 +19,7 @@ public class Product {
     private Long id;
     @Column(unique = true)
     private String name;
+    private Long shopId;
     private List<String> manufacturer;
     private int price;
     private int count;

@@ -5,16 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "cart")
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long customerid;
+    private Long customerId;
+    private List<CartItem> cartItemList;
     private int totalPrice;
+
+    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+    private List<CartItem> cartItem;
 }

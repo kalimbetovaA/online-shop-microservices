@@ -1,7 +1,8 @@
 package kz.iitu.shoppingcartservice.service.impl;
 
 import kz.iitu.shoppingcartservice.model.Cart;
-import kz.iitu.shoppingcartservice.model.Product;
+import kz.iitu.shoppingcartservice.model.CartItem;
+import kz.iitu.shoppingcartservice.model.Customer;
 import kz.iitu.shoppingcartservice.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
@@ -21,10 +22,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Product getProductsById(Long id) {
-        Product product = restTemplate.getForObject("http://localhost/product/" + id, Product.class);
-        totalprice = calcTotalPrice(product.getPrice());
-        return product;
+    public CartItem getProductsById(Long id) {
+        CartItem cartItem = restTemplate.getForObject("http://localhost/product/" + id, CartItem.class);
+        totalprice = calcTotalPrice(cartItem.getPrice());
+        return cartItem;
+    }
+
+    @Override
+    public Customer getCustomerById(Long id) {
+        Customer customer = restTemplate.getForObject("http://localhost/customer/" + id, Customer.class);
+        return customer;
     }
 
     @Override
