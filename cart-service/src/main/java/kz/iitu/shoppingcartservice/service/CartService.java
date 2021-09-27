@@ -12,4 +12,8 @@ public interface CartService {
     Long getProductIdById(Long id);
     int getProductCountById(Long id);
     Double getProductPriceById(Long id);
+
+    void createCart(Cart cart);
+    void deleteCart(Long id);
+    void updateCart(Cart cart);
 }

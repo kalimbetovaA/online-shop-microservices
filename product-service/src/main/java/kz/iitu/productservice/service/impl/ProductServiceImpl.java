@@ -59,11 +59,11 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> productOptional = productRepository.findById(product.getId());
         if(productOptional.isPresent()){
             Product product1 = productOptional.get();
-            product.setName(product1.getName());
-            product.setCount(product1.getCount());
-            product.setDescription(product1.getDescription());
-            product.setPrice(product1.getPrice());
-            product.setShopId(product1.getShopId());
+            product1.setName(product.getName());
+            product1.setCount(product.getCount());
+            product1.setDescription(product.getDescription());
+            product1.setPrice(product.getPrice());
+            product1.setShopId(product.getShopId());
         }
     }
 }
