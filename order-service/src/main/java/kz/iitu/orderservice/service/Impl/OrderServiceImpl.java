@@ -64,6 +64,7 @@ public class OrderServiceImpl implements OrderService {
             orderItemService.addOrderItem(orderItem);
         }
 
+        orderRepository.save(newOrder);
         restTemplate.delete("http://localhost:8085/shopping-cart/customer/"+customerId);
     }
 
