@@ -1,5 +1,7 @@
 package kz.iitu.orderservice.service.Impl;
 
+import kz.iitu.orderservice.model.Cart;
+import kz.iitu.orderservice.model.CartItem;
 import kz.iitu.orderservice.model.Order;
 import kz.iitu.orderservice.model.OrderItem;
 import kz.iitu.orderservice.repository.OrderItemRepository;
@@ -45,20 +47,18 @@ public class OrderServiceImpl implements OrderService {
 
         Order newOrder = new Order();
         String deliverAddress = restTemplate.getForObject("http://localhost:8081/customers/"+customerId+"/address", String.class);
-
-        Double totalPrice = restTemplate.getForObject("http://localhost:8085/shopping-cart/customer/"+customerId+"/totalPrice/", Double.class);
-
         newOrder.setCustomerId(customerId);
         newOrder.setDeliverAddress(deliverAddress);
-        newOrder.setTotalPrice(totalPrice);
 
-        List<Long> cartIds = restTemplate.getForObject("http://localhost:8085/shopping-cart/customer/"+customerId+"/cartList/", List.class);
+        Cart cart = restTemplate.getForObject("http://localhost:8085/shopping-cart/customer/"+customerId+"/cart", Cart.class);
 
-        for (Long cartId : cartIds) {
+        newOrder.setTotalPrice(cart.getTotalPrice());
+
+        for (CartItem cartItem : cart.getCartItem()) {
             OrderItem orderItem = new OrderItem();
-            orderItem.setProductId(restTemplate.getForObject("http://localhost:8085/shopping-cart/customer/"+customerId+"cart/"+cartId+"/productId", Long.class));
-            orderItem.setQuantity(restTemplate.getForObject("http://localhost:8085/shopping-cart/customer/"+customerId+"cart/"+cartId+"/quantity", Integer.class));
-            orderItem.setPrice(restTemplate.getForObject("http://localhost:8085/shopping-cart/customer/"+customerId+"cart/"+cartId+"/price", Double.class));
+            orderItem.setProductId(cartItem.getProductId());
+            orderItem.setQuantity(cartItem.getCount());
+            orderItem.setPrice(cartItem.getPrice());
             orderItem.setOrder(newOrder);
 
             orderItemService.addOrderItem(orderItem);
