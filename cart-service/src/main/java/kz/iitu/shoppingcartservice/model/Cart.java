@@ -18,7 +18,7 @@ public class Cart {
     private Long id;
     private Long customerId;
     private List<CartItem> cartItemList;
-    private int totalPrice;
+    private double totalPrice;
 
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
     private List<CartItem> cartItem;

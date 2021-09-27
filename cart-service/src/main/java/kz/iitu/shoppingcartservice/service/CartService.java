@@ -8,6 +8,8 @@ public interface CartService {
     Cart getCartById(Long id);
     CartItem getProductsById(Long id);
     Customer getCustomerById(Long id);
-    int calcTotalPrice(int price);
-
+    double calcTotalPrice(double price);
+    Long getProductIdById(Long id);
+    int getProductCountById(Long id);
+    Double getProductPriceById(Long id);
 }

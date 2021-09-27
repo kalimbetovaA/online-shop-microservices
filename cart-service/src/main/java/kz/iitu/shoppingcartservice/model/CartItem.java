@@ -18,7 +18,7 @@ public class CartItem {
     @Column(unique = true)
     private String name;
     private List<String> manufacturer;
-    private int price;
+    private double price;
     private int count;
     private String description;
     private boolean in_stock;
