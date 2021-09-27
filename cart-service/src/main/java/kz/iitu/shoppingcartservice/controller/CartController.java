@@ -41,7 +41,7 @@ public class CartController {
     public ResponseEntity<?> getProductIdById(@PathVariable Long customerid, @PathVariable Long id){
         Cart cart = cartService.getCartById(id);
         CartItem cartItem = (CartItem) cart.getCartItem();
-        return ResponseEntity.ok(cartItem.getId());
+        return ResponseEntity.ok(cartItem.getProductId());
     }
     @GetMapping("/customer/{customerid}/cart/{id}/quantity")
     public ResponseEntity<?> getProductCountById(@PathVariable Long customerid, @PathVariable Long id){

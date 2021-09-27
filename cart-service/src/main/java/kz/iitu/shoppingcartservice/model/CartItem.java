@@ -22,6 +22,7 @@ public class CartItem {
     private int count;
     private String description;
     private boolean in_stock;
+    private Long productId;
 
     @ManyToOne
     @JoinColumn(name = "cart_id", referencedColumnName = "id")

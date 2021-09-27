@@ -52,7 +52,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Long getProductIdById(Long id) {
         CartItem cartItem = restTemplate.getForObject("http://localhost/product/" + id, CartItem.class);
-        return cartItem.getId();
+        return cartItem.getProductId();
     }
 
     @Override
