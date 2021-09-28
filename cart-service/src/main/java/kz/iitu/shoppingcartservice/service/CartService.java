@@ -7,15 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CartService {
-    Cart getCartById(Long id);
-    CartItem getProductsById(Long id);
-    Customer getCustomerById(Long id);
-    double calcTotalPrice(double price);
-    Long getProductIdById(Long id);
-    int getProductCountById(Long id);
-    Double getProductPriceById(Long id);
-
-    void createCart(Cart cart);
-    void deleteCart(Long id);
+    Cart getCart(Long customerId);
+    void createCart(Long customerId);
     void updateCart(Cart cart);
+    void clearCart(Long customerId);
+    void addProductToCart(Long customerId, Long productId, Integer quantity);
 }

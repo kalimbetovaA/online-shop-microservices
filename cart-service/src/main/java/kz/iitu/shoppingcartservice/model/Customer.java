@@ -7,16 +7,12 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String username;
     private String firstname;
     private String lastname;

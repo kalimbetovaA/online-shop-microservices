@@ -1,7 +1,7 @@
 package kz.iitu.productcategoryservice.service.impl;
 
 import kz.iitu.productcategoryservice.model.Product;
-import kz.iitu.productcategoryservice.service.ProductService;
+import kz.iitu.productcategoryservice.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductCategoryCategoryServiceImpl implements ProductCategoryService {
 
     @Autowired
     private RestTemplate restTemplate;

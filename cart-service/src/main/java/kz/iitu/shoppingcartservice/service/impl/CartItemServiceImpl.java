@@ -24,4 +24,9 @@ public class CartItemServiceImpl implements CartItemService {
     public CartItem findCartItemsByCart(Cart cart, Long id) {
         return cartItemRepository.findById(id).get();
     }
+
+    @Override
+    public void addCartItem(CartItem cartItem) {
+        cartItemRepository.saveAndFlush(cartItem);
+    }
 }

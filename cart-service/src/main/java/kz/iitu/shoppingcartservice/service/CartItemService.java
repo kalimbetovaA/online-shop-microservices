@@ -10,4 +10,6 @@ public interface CartItemService{
     public List<CartItem> findAllByOrder(Cart cart);
 
     public CartItem findCartItemsByCart(Cart cart, Long id);
+
+    public void addCartItem(CartItem cartItem);
 }

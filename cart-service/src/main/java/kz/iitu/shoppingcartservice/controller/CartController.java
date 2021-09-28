@@ -18,53 +18,32 @@ public class CartController {
     @Autowired
     private CartItemService cartItemService;
 
-    @GetMapping("/customer/{customerid}/cart/{id}")
-    public ResponseEntity<?> getCartById(@PathVariable Long customerid, @PathVariable Long id){
-        return ResponseEntity.ok(cartService.getCartById(id));
-    }
-    @GetMapping("/product/{id}")
-    public ResponseEntity<?> getProductsById(@PathVariable Long id){
-        return ResponseEntity.ok(cartService.getProductsById(id));
-    }
-    @GetMapping("/customer/{id}")
-    public ResponseEntity<?> getCustomerById(@PathVariable Long id){
-        return ResponseEntity.ok(cartService.getCustomerById(id));
-    }
-    @GetMapping("/{id}/cartItem")
-    public ResponseEntity<?> getCartItems(@PathVariable Long id){
-        Cart cart = cartService.getCartById(id);
-        return ResponseEntity.ok(cartItemService.findCartItemsByCart(cart, id));
-    }
-    @GetMapping("/customer/{customerid}/cart/{id}/productId")
-    public ResponseEntity<?> getProductIdById(@PathVariable Long customerid, @PathVariable Long id){
-        Cart cart = cartService.getCartById(id);
-        CartItem cartItem = (CartItem) cart.getCartItem();
-        return ResponseEntity.ok(cartItem.getProductId());
-    }
-    @GetMapping("/customer/{customerid}/cart/{id}/quantity")
-    public ResponseEntity<?> getProductCountById(@PathVariable Long customerid, @PathVariable Long id){
-        Cart cart = cartService.getCartById(id);
-        CartItem cartItem = (CartItem) cart.getCartItem();
-        return ResponseEntity.ok(cartItem.getCount());
-    }
-    @GetMapping("/customer/{customerid}/cart/{id}/price")
-    public ResponseEntity<?> getProductPriceById(@PathVariable Long customerid, @PathVariable Long id){
-        Cart cart = cartService.getCartById(id);
-        CartItem cartItem = (CartItem) cart.getCartItem();
-        return ResponseEntity.ok(cartItem.getPrice());
-    }
-    @PostMapping("")
-    public ResponseEntity<?> createProduct(@PathVariable Cart cart){
-        cartService.createCart(cart);
+    @PostMapping("/customer/{customerId}")
+    public ResponseEntity<?> createCart(@PathVariable Long customerId){
+        cartService.createCart(customerId);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id){
-        cartService.deleteCart(id);
+
+    @GetMapping("/customer/{customerId}/cart")
+    public ResponseEntity<?> getCart(@PathVariable Long customerId){
+        Cart cart = cartService.getCart(customerId);
+        return ResponseEntity.ok(cart);
+    }
+
+    @PostMapping("/customer/{customerId}/addCartItem")
+    public ResponseEntity<?> addCartItem(@PathVariable Long customerId, @RequestParam Long productId, @RequestParam Integer quantity){
+        cartService.addProductToCart(customerId, productId, quantity);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+    }
+
+    @DeleteMapping("/customer/{customerId}")
+    public ResponseEntity<?> deleteCart(@PathVariable Long customerId){
+        cartService.clearCart(customerId);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long id,@PathVariable Cart cart){
+    public ResponseEntity<?> updateProduct(@PathVariable Long id,@RequestBody Cart cart){
         cart.setId(id);
         cartService.updateCart(cart);
         return new ResponseEntity<Void>(HttpStatus.OK);
