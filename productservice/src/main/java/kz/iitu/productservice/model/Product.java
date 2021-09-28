@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.util.List;
@@ -13,16 +14,25 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Product {
+    @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String name;
     private Long shopId;
-    private List<String> manufacturer;
     private double price;
     private int count;
     private String description;
     private boolean in_stock;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

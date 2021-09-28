@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public interface ProductRepository extends JpaRepository<Product, Long> {
     public List<Product> findProductById(Long id);
 }

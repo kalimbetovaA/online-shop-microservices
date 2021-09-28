@@ -3,7 +3,9 @@ package kz.iitu.shoppingcartservice.service;
 import kz.iitu.shoppingcartservice.model.Cart;
 import kz.iitu.shoppingcartservice.model.CartItem;
 import kz.iitu.shoppingcartservice.model.Customer;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface CartService {
     Cart getCartById(Long id);
     CartItem getProductsById(Long id);

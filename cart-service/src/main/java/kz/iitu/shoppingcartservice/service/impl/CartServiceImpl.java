@@ -7,10 +7,11 @@ import kz.iitu.shoppingcartservice.repository.CartRepository;
 import kz.iitu.shoppingcartservice.service.CartItemService;
 import kz.iitu.shoppingcartservice.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
-
+@Service
 public class CartServiceImpl implements CartService {
     @Autowired
     private RestTemplate restTemplate;
@@ -89,7 +90,6 @@ public class CartServiceImpl implements CartService {
             Cart cart1 = optionalCart.get();
             cart1.setId(cart.getId());
             cart1.setCartItem(cart.getCartItem());
-            cart1.setCartItemList(cart.getCartItemList());
             cart1.setCustomerId(cart.getCustomerId());
         }
     }
