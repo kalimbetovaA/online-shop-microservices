@@ -53,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
         Cart cart = restTemplate.getForObject("http://localhost:8085/shopping-cart/customer/"+customerId+"/cart", Cart.class);
 
         newOrder.setTotalPrice(cart.getTotalPrice());
+        orderRepository.save(newOrder);
 
         for (CartItem cartItem : cart.getCartItem()) {
             OrderItem orderItem = new OrderItem();
@@ -64,7 +65,6 @@ public class OrderServiceImpl implements OrderService {
             orderItemService.addOrderItem(orderItem);
         }
 
-        orderRepository.save(newOrder);
         restTemplate.delete("http://localhost:8085/shopping-cart/customer/"+customerId);
     }
 

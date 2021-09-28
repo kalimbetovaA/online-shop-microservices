@@ -4,23 +4,22 @@ Description: Our project will be an Online Store of electronic equipment, where 
 
 Microservices:
 
-Kalimbetova Aray:
+Kalimbetova Aray(described):
 ProductService:
-Product Information (Name, description, price, in_stock etc)
+  Product Information (Name, description, price, in_stock etc)
 ProductCategoryService: 
-Product Categories (category name, tag etc)
+  Product Categories (category name, tag etc)
 ShoppingCartService: 
-Products which planned to buy, customers can add additional products or remove products from cart (products list, each product count, sum, discount)
+  Products which planned to buy, customers can add additional products or remove products from cart (products list, each product count, sum, discount)
 
-Abibulla Yershat:
+Abibulla Yershat(described):
 CustomerService: 
-Contains basic customer information for authentification (Id, Username, password etc) and wallet at the Online Store (tenge)
+  Contains basic customer information for authentification (Id, Username, password etc) and wallet at the Online Store (tenge)
 OrderService: 
-The Service contains information about ordered products, customers who order, delivery address, total sum, payment status, etc.
+  The Service contains information about ordered products, customers who order, delivery address, total sum, payment status, etc.
 ShopService: 
-Information about all shops in the online store, the products of which we provide (Name, provided products etc)
+  Information about all shops in the online store, the products of which we provide (Name, provided products etc)
 
-Microservices communication:
 
 Customer service: 
 POST method for authentication
