@@ -39,8 +39,8 @@ public class OrderController {
         return ResponseEntity.ok(orderItemService.findOrderItemsByOrder(order));
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> createOrder(@RequestBody Long customerId) {
+    @PostMapping("/customer/{customerId}")
+    public ResponseEntity<?> createOrder(@PathVariable Long customerId) {
         orderService.createOrder(customerId);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }

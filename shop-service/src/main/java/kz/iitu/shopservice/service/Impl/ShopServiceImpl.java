@@ -1,10 +1,12 @@
 package kz.iitu.shopservice.service.Impl;
 
+import kz.iitu.shopservice.model.Product;
 import kz.iitu.shopservice.model.Shop;
 import kz.iitu.shopservice.repository.ShopRepository;
 import kz.iitu.shopservice.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,10 +17,20 @@ public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopRepository shopRepository;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
 
     @Override
     public List<Shop> findAllShops() {
         return shopRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getShopProducts(Long id) {
+
+        List<Product> productList  = restTemplate.getForObject("http://localhost:8083/products/shop/"+ id, List.class);
+        return productList;
     }
 
     @Override

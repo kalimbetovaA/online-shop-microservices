@@ -23,6 +23,6 @@ public class Order {
     private String deliverAddress;
     private Boolean deliverStatus;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 }

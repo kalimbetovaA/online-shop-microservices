@@ -16,5 +16,5 @@ public class Cart {
     private Long id;
     private Long customerId;
     private double totalPrice;
-    private List<CartItem> cartItem;
+    private List<CartItem> cartItems;
 }

@@ -24,6 +24,11 @@ public class ShopController {
         return ResponseEntity.ok(shopService.findShopById(id));
     }
 
+    @GetMapping("/{id}/products")
+    public ResponseEntity<?> getShopProducts(@PathVariable Long id) {
+        return ResponseEntity.ok(shopService.getShopProducts(id));
+    }
+
     @PostMapping("")
     public ResponseEntity<?> addShop(@RequestBody Shop shop) {
         shopService.addShop(shop);
@@ -37,7 +42,7 @@ public class ShopController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCustomer(@PathVariable Long id, @RequestBody Shop shop) {
+    public ResponseEntity<?> updateShop(@PathVariable Long id, @RequestBody Shop shop) {
         shop.setId(id);
         shopService.updateShop(shop);
         return new ResponseEntity<Void>(HttpStatus.OK);

@@ -15,11 +15,9 @@ import java.util.List;
 public class CartItem {
 
     private Long id;
-    private String name;
-    private List<String> manufacturer;
-    private double price;
-    private int count;
-    private String description;
-    private boolean in_stock;
     private Long productId;
+    private int count;
+    private double price;
+    private String description;
+    private Cart cart;
 }
