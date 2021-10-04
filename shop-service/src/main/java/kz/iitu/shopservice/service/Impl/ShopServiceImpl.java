@@ -29,7 +29,7 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public List<Product> getShopProducts(Long id) {
 
-        List<Product> productList  = restTemplate.getForObject("http://localhost:8083/products/shop/"+ id, List.class);
+        List<Product> productList  = restTemplate.getForObject("http://productservice/products/shop/"+ id, List.class);
         return productList;
     }
 

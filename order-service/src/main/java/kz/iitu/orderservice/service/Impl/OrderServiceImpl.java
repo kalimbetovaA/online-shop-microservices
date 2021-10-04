@@ -46,11 +46,11 @@ public class OrderServiceImpl implements OrderService {
     public void createOrder(Long customerId) {
 
         Order newOrder = new Order();
-        String deliverAddress = restTemplate.getForObject("http://localhost:8081/customers/"+customerId+"/address", String.class);
+        String deliverAddress = restTemplate.getForObject("http://customer-service/customers/"+customerId+"/address", String.class);
         newOrder.setCustomerId(customerId);
         newOrder.setDeliverAddress(deliverAddress);
 
-        Cart cart = restTemplate.getForObject("http://localhost:8085/shopping-cart/customer/"+customerId+"/cart", Cart.class);
+        Cart cart = restTemplate.getForObject("http://cartItem-service/shopping-cart/customer/"+customerId+"/cart", Cart.class);
 
         newOrder.setTotalPrice(cart.getTotalPrice());
         orderRepository.save(newOrder);
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
             orderItemService.addOrderItem(orderItem);
         }
 
-        restTemplate.delete("http://localhost:8085/shopping-cart/customer/"+customerId);
+        restTemplate.delete("http://cartItem-service/shopping-cart/customer/"+customerId);
     }
 
     @Override
