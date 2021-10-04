@@ -22,7 +22,7 @@ public class ProductCategoryCategoryServiceImpl implements ProductCategoryServic
     @Override
     public List<Product> getAllProducts(Long id) {
 
-        List<Product> productList  = restTemplate.getForObject("http://localhost:8083/products/category/"+ id, List.class);
+        List<Product> productList  = restTemplate.getForObject("http://productservice/products/category/"+ id, List.class);
         return productList;
     }
 

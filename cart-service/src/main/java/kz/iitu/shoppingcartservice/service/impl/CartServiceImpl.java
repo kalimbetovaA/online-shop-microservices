@@ -42,7 +42,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addProductToCart(Long customerId, Long productId, Integer quantity) {
         Cart cart = getCart(customerId);
-        Product product = restTemplate.getForObject("http://localhost:8083/products/" + productId, Product.class);
+        Product product = restTemplate.getForObject("http://productservice/products/" + productId, Product.class);
         CartItem cartItem = new CartItem();
         cartItem.setProductId(productId);
         cartItem.setCount(quantity);
