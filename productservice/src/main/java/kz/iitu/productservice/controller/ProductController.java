@@ -19,18 +19,21 @@ public class ProductController {
         return ResponseEntity.ok(productService.findAllProducts());
     }
 
+    @GetMapping("/shop/{shopId}")
+    public ResponseEntity<?> getShopProducts(@PathVariable Long shopId){
+        return ResponseEntity.ok(productService.getShopProducts(shopId));
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<?> getCategoryProducts(@PathVariable Long categoryId){
+        return ResponseEntity.ok(productService.getCategoryProducts(categoryId));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findProductById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.findProductById(id));
     }
-    @GetMapping("/{id}/price")
-    public ResponseEntity<?> findProductPriceById(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.findProductPriceById(id));
-    }
-    @GetMapping("/{id}/name")
-    public ResponseEntity<?> findProductNameById(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.findProductNameById(id));
-    }
+
     @PostMapping("")
     public ResponseEntity<?> createProduct(@RequestBody Product product){
         productService.createProduct(product);

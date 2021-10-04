@@ -1,5 +1,6 @@
 package kz.iitu.shoppingcartservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    @JsonIgnore
     private Cart cart;
 
 

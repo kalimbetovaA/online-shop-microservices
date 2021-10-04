@@ -23,8 +23,8 @@ public class Product {
     @Column(unique = true)
     private String name;
     private Long shopId;
+    private Long categoryId;
     private double price;
-    private int count;
     private String description;
     private boolean in_stock;
 

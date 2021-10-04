@@ -1,7 +1,6 @@
 package kz.iitu.shoppingcartservice.controller;
 
 import kz.iitu.shoppingcartservice.model.Cart;
-import kz.iitu.shoppingcartservice.model.CartItem;
 import kz.iitu.shoppingcartservice.service.CartItemService;
 import kz.iitu.shoppingcartservice.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;

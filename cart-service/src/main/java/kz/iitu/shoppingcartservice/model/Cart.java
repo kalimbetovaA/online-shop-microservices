@@ -20,7 +20,7 @@ public class Cart {
     private Long customerId;
     private double totalPrice;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
 
     public void setId(Long id) {

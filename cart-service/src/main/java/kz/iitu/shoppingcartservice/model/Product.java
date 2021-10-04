@@ -15,9 +15,8 @@ public class Product {
     private Long id;
     private String name;
     private Long shopId;
-    private List<String> manufacturer;
-    private int price;
-    private int count;
+    private Long categoryId;
+    private double price;
     private String description;
     private boolean in_stock;
 }

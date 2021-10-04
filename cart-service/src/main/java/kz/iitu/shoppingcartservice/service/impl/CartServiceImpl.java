@@ -42,13 +42,15 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addProductToCart(Long customerId, Long productId, Integer quantity) {
         Cart cart = getCart(customerId);
-        Product product = restTemplate.getForObject("http://localhost:8086/product/" + productId, Product.class);
+        Product product = restTemplate.getForObject("http://localhost:8083/products/" + productId, Product.class);
         CartItem cartItem = new CartItem();
         cartItem.setProductId(productId);
         cartItem.setCount(quantity);
         cartItem.setPrice(quantity*product.getPrice());
         cartItem.setCart(cart);
         cartItemService.addCartItem(cartItem);
+        cart.setTotalPrice(cart.getTotalPrice()+cartItem.getPrice());
+        cartRepository.saveAndFlush(cart);
     }
 
     @Override
@@ -65,6 +67,7 @@ public class CartServiceImpl implements CartService {
             cart1.setId(cart.getId());
             cart1.setCartItems(cart.getCartItems());
             cart1.setCustomerId(cart.getCustomerId());
+            cartRepository.saveAndFlush(cart1);
         }
     }
 

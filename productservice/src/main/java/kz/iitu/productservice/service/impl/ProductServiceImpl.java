@@ -20,19 +20,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getShopProducts(Long shopId) {
+        return productRepository.findByShopId(shopId);
+    }
+
+    @Override
+    public List<Product> getCategoryProducts(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
+
+    @Override
     public Product findProductById(Long id) {
         return productRepository.findById(id).get();
-    }
-
-    @Override
-    public Double findProductPriceById(Long id) {
-        return productRepository.findById(id).get().getPrice();
-    }
-
-
-    @Override
-    public String findProductNameById(Long id) {
-        return productRepository.findById(id).get().getName();
     }
 
     @Override
@@ -54,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         if(productOptional.isPresent()){
             Product product1 = productOptional.get();
             product1.setName(product.getName());
-            product1.setCount(product.getCount());
+            product1.setCategoryId(product.getCategoryId());
             product1.setDescription(product.getDescription());
             product1.setPrice(product.getPrice());
             product1.setShopId(product.getShopId());
