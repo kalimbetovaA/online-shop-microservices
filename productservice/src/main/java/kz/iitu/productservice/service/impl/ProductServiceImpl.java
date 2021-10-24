@@ -21,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getShopProducts(Long shopId) {
+        System.out.println("test");
         return productRepository.findByShopId(shopId);
     }
 
