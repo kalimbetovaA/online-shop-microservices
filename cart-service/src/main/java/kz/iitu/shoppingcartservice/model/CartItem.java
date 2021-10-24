@@ -1,6 +1,7 @@
 package kz.iitu.shoppingcartservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,15 @@ public class CartItem {
     @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "The database generated Cart Item ID")
     private Long id;
+    @ApiModelProperty(notes = "The ID of Product in Cart Item")
     private Long productId;
+    @ApiModelProperty(notes = "The Product count in Cart Item")
     private int count;
+    @ApiModelProperty(notes = "The price of Cart Item")
     private double price;
+    @ApiModelProperty(notes = "The description of Cart Item")
     private String description;
 
     @ManyToOne
@@ -27,12 +33,4 @@ public class CartItem {
     @JsonIgnore
     private Cart cart;
 
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }
