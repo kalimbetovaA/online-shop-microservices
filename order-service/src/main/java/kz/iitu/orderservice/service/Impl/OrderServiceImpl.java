@@ -6,6 +6,8 @@ import kz.iitu.orderservice.model.Order;
 import kz.iitu.orderservice.model.OrderItem;
 import kz.iitu.orderservice.repository.OrderItemRepository;
 import kz.iitu.orderservice.repository.OrderRepository;
+import kz.iitu.orderservice.service.CartService;
+import kz.iitu.orderservice.service.CustomerService;
 import kz.iitu.orderservice.service.OrderItemService;
 import kz.iitu.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderItemService orderItemService;
 
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private CartService cartService;
+
     @Override
     public List<Order> findAllOrders() {
         return orderRepository.findAll();
@@ -46,11 +54,11 @@ public class OrderServiceImpl implements OrderService {
     public void createOrder(Long customerId) {
 
         Order newOrder = new Order();
-        String deliverAddress = restTemplate.getForObject("http://customer-service/customers/"+customerId+"/address", String.class);
+        String deliverAddress = customerService.getCustomerAddress(customerId);
         newOrder.setCustomerId(customerId);
         newOrder.setDeliverAddress(deliverAddress);
 
-        Cart cart = restTemplate.getForObject("http://cartItem-service/shopping-cart/customer/"+customerId+"/cart", Cart.class);
+        Cart cart = cartService.getCartByCustomerId(customerId);
 
         newOrder.setTotalPrice(cart.getTotalPrice());
         orderRepository.save(newOrder);
@@ -65,7 +73,6 @@ public class OrderServiceImpl implements OrderService {
             orderItemService.addOrderItem(orderItem);
         }
 
-        restTemplate.delete("http://cartItem-service/shopping-cart/customer/"+customerId);
     }
 
     @Override

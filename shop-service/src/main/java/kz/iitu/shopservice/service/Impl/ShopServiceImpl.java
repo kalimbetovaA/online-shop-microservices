@@ -1,5 +1,6 @@
 package kz.iitu.shopservice.service.Impl;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import kz.iitu.shopservice.model.Product;
 import kz.iitu.shopservice.model.Shop;
 import kz.iitu.shopservice.repository.ShopRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,9 +29,14 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    @HystrixCommand(fallbackMethod = "getShopProductsFallback")
     public List<Product> getShopProducts(Long id) {
-
         List<Product> productList  = restTemplate.getForObject("http://productservice/products/shop/"+ id, List.class);
+        return productList;
+    }
+
+    public List<Product> getShopProductsFallback(Long id) {
+        List<Product> productList  = new ArrayList<Product>();
         return productList;
     }
 
