@@ -7,6 +7,7 @@ import kz.iitu.shoppingcartservice.model.Product;
 import kz.iitu.shoppingcartservice.repository.CartRepository;
 import kz.iitu.shoppingcartservice.service.CartItemService;
 import kz.iitu.shoppingcartservice.service.CartService;
+import kz.iitu.shoppingcartservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,11 +17,12 @@ import java.util.Optional;
 
 @Service
 public class CartServiceImpl implements CartService {
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private CartItemService cartItemService;
@@ -42,7 +44,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addProductToCart(Long customerId, Long productId, Integer quantity) {
         Cart cart = getCart(customerId);
-        Product product = restTemplate.getForObject("http://productservice/products/" + productId, Product.class);
+        Product product = productService.getProductById(productId);
         CartItem cartItem = new CartItem();
         cartItem.setProductId(productId);
         cartItem.setCount(quantity);

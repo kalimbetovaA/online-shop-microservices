@@ -1,5 +1,6 @@
 package kz.iitu.productcategoryservice.service.impl;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import kz.iitu.productcategoryservice.model.Product;
 import kz.iitu.productcategoryservice.model.ProductCategory;
 import kz.iitu.productcategoryservice.repository.ProductCategoryRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +22,15 @@ public class ProductCategoryCategoryServiceImpl implements ProductCategoryServic
     private RestTemplate restTemplate;
 
     @Override
+    @HystrixCommand(fallbackMethod = "getAllProductsFallback")
     public List<Product> getAllProducts(Long id) {
 
         List<Product> productList  = restTemplate.getForObject("http://productservice/products/category/"+ id, List.class);
         return productList;
+    }
+
+    public List<Product> getAllProductsFallback(Long id) {
+        return new ArrayList<Product>();
     }
 
     @Override
