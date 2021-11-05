@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+
 @RestController
 @RequestMapping("/customers")
 @Api(value = "Customer Controller", description = "Controller allows to interact with Customer object")
@@ -47,6 +48,7 @@ public class CustomerController {
     public ResponseEntity<?> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.findCustomerById(id));
     }
+
 
     @ApiOperation(value = "To get username of Customer by its Id", response = Customer.class)
     @ApiResponses(value = {

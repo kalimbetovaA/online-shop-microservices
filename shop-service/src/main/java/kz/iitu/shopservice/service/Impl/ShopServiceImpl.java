@@ -1,6 +1,7 @@
 package kz.iitu.shopservice.service.Impl;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import kz.iitu.shopservice.model.Product;
 import kz.iitu.shopservice.model.Shop;
 import kz.iitu.shopservice.repository.ShopRepository;
@@ -29,7 +30,13 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    @HystrixCommand(fallbackMethod = "getShopProductsFallback")
+    @HystrixCommand(fallbackMethod = "getShopProductsFallback",
+            threadPoolKey = "getShopProducts",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="120"),
+                    @HystrixProperty(name="maxQueueSize", value="70"),
+            }
+    )
     public List<Product> getShopProducts(Long id) {
         List<Product> productList  = restTemplate.getForObject("http://productservice/products/shop/"+ id, List.class);
         return productList;

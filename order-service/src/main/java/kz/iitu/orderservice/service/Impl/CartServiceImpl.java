@@ -1,6 +1,7 @@
 package kz.iitu.orderservice.service.Impl;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import kz.iitu.orderservice.model.Cart;
 import kz.iitu.orderservice.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,13 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    @HystrixCommand(fallbackMethod = "getCartByCustomerIdFallback")
+    @HystrixCommand(fallbackMethod = "getCartByCustomerIdFallback",
+            threadPoolKey = "getCartByCustomerId",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+            }
+    )
     public Cart getCartByCustomerId(Long customerId) {
         return restTemplate.getForObject("http://cartItem-service/shopping-cart/customer/"+customerId+"/cart", Cart.class);
     }
