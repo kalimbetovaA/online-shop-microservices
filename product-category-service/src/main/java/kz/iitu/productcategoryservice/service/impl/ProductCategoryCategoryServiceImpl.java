@@ -1,6 +1,7 @@
 package kz.iitu.productcategoryservice.service.impl;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import kz.iitu.productcategoryservice.model.Product;
 import kz.iitu.productcategoryservice.model.ProductCategory;
 import kz.iitu.productcategoryservice.repository.ProductCategoryRepository;
@@ -22,7 +23,13 @@ public class ProductCategoryCategoryServiceImpl implements ProductCategoryServic
     private RestTemplate restTemplate;
 
     @Override
-    @HystrixCommand(fallbackMethod = "getAllProductsFallback")
+    @HystrixCommand(fallbackMethod = "getAllProductsFallback",
+            threadPoolKey = "getAllProducts",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="90"),
+                    @HystrixProperty(name="maxQueueSize", value="40"),
+            }
+    )
     public List<Product> getAllProducts(Long id) {
 
         List<Product> productList  = restTemplate.getForObject("http://productservice/products/category/"+ id, List.class);
