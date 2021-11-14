@@ -31,8 +31,8 @@ public class CustomerController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     }
     )
-    @GetMapping("")
-    public ResponseEntity<?> getAllCustomers() {
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Customer>> getAllCustomers() {
         return ResponseEntity.ok(customerService.findAllCustomers());
     }
 
@@ -74,20 +74,6 @@ public class CustomerController {
     @GetMapping("/{id}/address")
     public ResponseEntity<?> getAddressByCustomerId(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.findCustomerAddressById(id));
-    }
-
-    @ApiOperation(value = "Method to Create a new Customer in the database")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful"),
-            @ApiResponse(code = 401, message = "Not authorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found")
-    }
-    )
-    @PostMapping("")
-    public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
-        customerService.createCustomer(customer);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Method to Delete a Customer by its Id")

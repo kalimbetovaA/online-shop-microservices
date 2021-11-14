@@ -30,4 +30,5 @@ public class Customer {
     private String email;
     @ApiModelProperty(notes = "The Customer chosen wallet")
     private String wallet;
+    private String role="CUSTOMER";
 }
