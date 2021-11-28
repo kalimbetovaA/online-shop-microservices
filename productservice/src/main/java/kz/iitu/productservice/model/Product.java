@@ -35,6 +35,7 @@ public class Product {
     private String description;
     @ApiModelProperty(notes = "The column responds to product availability")
     private boolean in_stock;
+    private int count;
     public void setId(Long id) {
         this.id = id;
     }

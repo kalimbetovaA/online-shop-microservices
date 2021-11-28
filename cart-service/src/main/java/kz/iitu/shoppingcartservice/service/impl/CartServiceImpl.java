@@ -43,6 +43,9 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addProductToCart(Long customerId, Long productId, Integer quantity) {
+        if(getCart(customerId)==null){
+            createCart(customerId);
+        }
         Cart cart = getCart(customerId);
         Product product = productService.getProductById(productId);
         CartItem cartItem = new CartItem();

@@ -1,4 +1,4 @@
-package kz.iitu.shopservice.config;
+package kz.iitu.shoppingcartservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
