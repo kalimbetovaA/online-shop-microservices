@@ -36,12 +36,10 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(id).get().getAddress();
     }
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void createCustomer(Customer customer) {
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        customer.setPassword((new BCryptPasswordEncoder()).encode(customer.getPassword()));
         customerRepository.saveAndFlush(customer);
     }
 

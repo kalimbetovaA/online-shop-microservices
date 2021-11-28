@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(Long customerId) {
+    public Order createOrder(Long customerId) {
 
         Order newOrder = new Order();
         String deliverAddress = customerService.getCustomerAddress(customerId);
@@ -62,7 +63,8 @@ public class OrderServiceImpl implements OrderService {
 
         newOrder.setTotalPrice(cart.getTotalPrice());
         orderRepository.save(newOrder);
-
+        System.out.println(cart);
+        List<OrderItem> orderItems=new ArrayList<OrderItem>();
         for (CartItem cartItem : cart.getCartItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setProductId(cartItem.getProductId());
@@ -71,7 +73,12 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setOrder(newOrder);
 
             orderItemService.addOrderItem(orderItem);
+            orderItems.add(orderItem);
         }
+
+        newOrder.setOrderItems(orderItems);
+
+        return newOrder;
 
     }
 

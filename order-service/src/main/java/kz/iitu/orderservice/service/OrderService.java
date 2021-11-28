@@ -12,7 +12,7 @@ public interface OrderService {
 
     public Order findOrderById(Long id);
 
-    public void createOrder(Long customerId);
+    public Order createOrder(Long customerId);
 
     public void updateOrder(Long id, Order order);
 

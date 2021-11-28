@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import kz.iitu.orderservice.model.Order;
+import kz.iitu.orderservice.service.Impl.Producer;
 import kz.iitu.orderservice.service.OrderItemService;
 import kz.iitu.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,15 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private final Producer producer;
 
     @Autowired
     private OrderItemService orderItemService;
+
+    public OrderController(Producer producer) {
+        this.producer = producer;
+    }
 
     @ApiOperation(value = "To get all Orders from the database", response = List.class)
     @ApiResponses(value = {
@@ -89,7 +96,8 @@ public class OrderController {
     )
     @PostMapping("/customer/{customerId}")
     public ResponseEntity<?> createOrder(@PathVariable Long customerId) {
-        orderService.createOrder(customerId);
+        Order order = orderService.createOrder(customerId);
+        this.producer.orderNotify(order);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 

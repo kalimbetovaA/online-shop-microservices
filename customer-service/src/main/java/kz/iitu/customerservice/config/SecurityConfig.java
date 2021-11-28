@@ -31,9 +31,5 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter
                 .roles("REST_CLIENT");
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }
